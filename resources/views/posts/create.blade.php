@@ -8,23 +8,22 @@
 </head>
 <body>
     <h1>Create A Post</h1>
-
     @if ($errors->any())
         <p>DEBUG</p>
         <p>{{$errors}}</p>        
     @endif
-    <form action="{{route('posts.post')}}" method="POST">
-        @csrf
-        @method('post')
-        <div>
-            <label for="title">Title:</label>
-            <input type="text" name="title" id="title" />
-        </div>
-        <div>
-            <label for="Body">Body:</label>
-            <input type="text" name="body" id="body" />
-        </div>
-        <input type="submit" value="Create Post" />
-    </form>
+        <form action="{{route('posts.post')}}" method="POST">
+            @csrf
+            @method('post')
+            <div>
+                <label for="title">Title:</label>
+                <input type="text" name="title" id="title" />
+            </div>
+            <div>
+                <label for="Body">Body:</label>
+                <input type="text" name="body" id="body" />
+            </div>
+            <input type="submit" value="Create Post" />
+        </form>
 </body>
 </html>

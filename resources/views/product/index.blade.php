@@ -8,7 +8,6 @@
 </head>
 <body>
     <h1>Product</h1>
-
     @if (session()->has('success'))
         <p>
             {{session('success')}}
