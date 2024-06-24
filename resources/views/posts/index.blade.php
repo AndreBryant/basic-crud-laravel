@@ -16,17 +16,16 @@
                 </a>
             </div>
         </div>
-        
         <div class="flex flex-col grow gap-4">
             @foreach ($posts as $post)
                 <div class="border p-4 rounded-xl bg-white group">
                     <div class="flex justify-between items-center">
                         <div class="flex items-end gap-2">
-                            <h3 class="font-semibold text-xl">
+                            <h2 class="font-semibold text-xl">
                                 {{$post->title}}
-                            </h3>
+                            </h2>
                             <p class="opacity-85">by {{$post->user->name}}</p>
-                            <p class="opacity-60 text-sm">at {{$post->created_at}}</p>
+                            <p class="opacity-60">at {{$post->created_at}}</p>
                         </div>
                         @if (Auth::id() == $post->user_id)
                             <div class="flex flex-row gap-4 group-hover:opacity-100 opacity-0 transition-opacity">

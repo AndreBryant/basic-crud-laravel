@@ -13,6 +13,18 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        {{-- does not work --}}
+        {{-- <script defer>
+            document.addEventListener("DOMContentLoaded", function(event) { 
+                var scrollpos = localStorage.getItem('scrollpos');
+                if (scrollpos) window.scrollTo(0, scrollpos);
+            });
+    
+            window.onbeforeunload = function(e) {
+                localStorage.setItem('scrollpos', window.scrollY);
+            };
+        </script> --}}
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 flex flex-col w-screen h-screen overflow-hidden">
@@ -28,7 +40,7 @@
             @endif
 
             <!-- Page Content -->
-            <main class="grow overflow-y-scroll">
+            <main class="grow overflow-y-scroll pb-8">
                 {{ $slot }}
             </main>
         </div>
