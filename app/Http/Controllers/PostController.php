@@ -12,7 +12,7 @@ use App\Models\Comment;
 class PostController extends Controller
 {
     public function index() {
-        $posts = Post::with(['user:id,name'])->get();
+        $posts = Post::with(['user:id,name'])->get()->sortBy('updated_at')->reverse();
         $userVotes = Vote::where('user_id', Auth::id())->pluck('post_id')->toArray();
 
         return view('posts.index', ['posts' => $posts, 'userVotes' => $userVotes]);
@@ -47,7 +47,7 @@ class PostController extends Controller
         ]);
 
         $post->update($data);
-        return redirect(route('posts.index'))->with('success', 'Post Updated.');
+        return redirect(route('posts.detail', ['post' => $post]))->with('success', 'Post Updated.');
     }
 
     public function destroy(Post $post) {
