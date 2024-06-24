@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\Vote;
+use App\Models\Comment;
 
 
 class PostController extends Controller
@@ -76,7 +77,6 @@ class PostController extends Controller
         if ($vote) {
             $post->votes -= 1;
             $post->save();
-    
             $vote->delete();
     
             return back()->with('success', 'Vote removed successfully.');
@@ -84,8 +84,10 @@ class PostController extends Controller
     }
 
     public function detail(Post $post) {
+        $comments = $post->comments()->with(['user:id,name'])->get();
         $post->load(['user:id,name']);
         $hasVoted = $post->votes()->where('user_id', auth()->id())->exists();
-        return view('posts.detail', ['post' => $post, 'hasVoted' => $hasVoted]);
+
+        return view('posts.detail', ['post' => $post, 'hasVoted' => $hasVoted, 'comments' => $comments, 'edit' => false]);
     }
 }
