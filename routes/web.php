@@ -26,19 +26,16 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
 
     // These are the basics of Routing in a CRUD app.
-    Route::get('/product',[ProductController::class, 'index'])->name('product.index');
-    Route::get('/product/create',[ProductController::class, 'create'])->name('product.create');
-    Route::post('/product',[ProductController::class, 'store'])->name('product.store');
-    Route::get('/product/{product}/edit',[ProductController::class, 'edit'])->name('product.edit');
-    Route::put('/product/{product}/update',[ProductController::class, 'update'])->name('product.update');
-    Route::delete('/product/{product}/destroy',[ProductController::class, 'destroy'])->name('product.destroy');
-
     Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts', [PostController::class, 'post'])->name('posts.post');
     Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::put('/posts/{post}/update', [PostController::class, 'update'])->name('posts.update');
     Route::delete('posts/{post}/destroy', [PostController::class, 'destroy'])->name('posts.destroy');
+    Route::put('/posts/{post}/vote', [PostController::class, 'vote'])->name('posts.vote');
+    Route::put('/posts/{post}/unvote', [PostController::class, 'unvote'])->name('posts.unvote');
+
+    Route::get('/posts/{post}', [PostController::class, 'detail'])->name('posts.detail');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
