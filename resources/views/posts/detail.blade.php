@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="p-4 bg-white flex flex-row justify-between">
+        <div class="p-4 bg-white flex flex-row justify-between items-end">
             <div class="flex flex-col gap-4">
                 <h3 class="font-semibold text-lg">Comments</h3>
                 <div>
@@ -74,7 +74,7 @@
                 </div>
             @endif
         </div>
-        <div class="flex flex-col gap-4 p-4 grow overflow-y-scroll bg-white border rounded-lg">
+        <div class="flex flex-col gap-4 p-4 bg-white border rounded-lg">
             @forelse ($comments as $comment)
                 @if ($edit && $edit && $editCommentId == $comment->id)
                     <form action="{{route('posts.comment.update', ['post' => $post ,'commentId' => $editCommentId])}}" method="post">
@@ -93,20 +93,20 @@
                         <p>{{$comment->body}}</p>
                         <div class="flex flex-row items-center gap-2">
                             @if (Auth::id() == $comment->user_id)
-                            <div>
-                                <a href="{{route('posts.comment.edit', ['post' => $post, 'commentId' => $comment->id])}}" class="underline-offset-2 underline text-sm">
-                                    Edit
-                                </a>
-                            </div>
-                            @if (Auth::id() == $post->user_id)
-                            <form action="{{route('posts.comment.destroy', ['post' => $post, 'commentId' => $comment->id])}}" method="post">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="underline-offset-2 underline text-sm">
-                                    Delete
-                                </button>
-                            </form>
-                            @endif
+                                <div>
+                                    <a href="{{route('posts.comment.edit', ['post' => $post, 'commentId' => $comment->id])}}" class="underline-offset-2 underline text-sm">
+                                        Edit
+                                    </a>
+                                </div>
+                                @if (Auth::id() == $comment->user_id)
+                                    <form action="{{route('posts.comment.destroy', ['post' => $post, 'commentId' => $comment->id])}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="underline-offset-2 underline text-sm">
+                                            Delete
+                                        </button>
+                                    </form>
+                                @endif
                             @endif
                         </div>
                     </div>

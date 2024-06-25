@@ -22,7 +22,7 @@ class CommentController extends Controller
     }
 
     public function edit(Post $post, $comment_id) {
-        $comments = $post->comments()->with(['user:id,name'])->get();
+        $comments = $post->comments()->with(['user:id,name'])->get()->sortBy('created_at')->reverse();
         $post->load(['user:id,name']);
         $hasVoted = $post->votes()->where('user_id', auth()->id())->exists();
 
