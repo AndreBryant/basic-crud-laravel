@@ -8,17 +8,17 @@ use Illuminate\View\Component;
 
 class Button extends Component
 {
+    public $variant;
     public $text;
     public $to;
-    public $variant;
     /**
      * Create a new component instance.
      */
-    public function __construct($text, $to, $variant)
+    public function __construct($variant, $text, $to = '')
     {
+        $this->variant = $variant;
         $this->text = $text;
         $this->to = $to;
-        $this->variant = $variant;
     }
 
     /**

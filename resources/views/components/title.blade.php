@@ -1,1 +1,3 @@
-<h2 class="font-semibold text-2xl">{{$title}}</h2>
+<h2 class="font-semibold text-2xl">
+    {{$title}}
+</h2>

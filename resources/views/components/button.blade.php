@@ -21,7 +21,7 @@
 @endphp
 
 <div>
-    <a href="{{$to}}">
+    <a href="{{$to ?? ''}}">
         <button 
             class="{{$spacing}} {{$border}} {{$bgColor ?? ''}} {{$textColor ?? '' }}"
             {{ $attributes }}    
