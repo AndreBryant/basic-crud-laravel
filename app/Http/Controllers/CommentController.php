@@ -15,7 +15,7 @@ class CommentController extends Controller
         ]);
         $data['user_id'] = Auth::id();
         $data['post_id'] = $post->id;
-
+        
         $newComment = Comment::create($data);
 
         return back()->with('success', 'Comment added successfully.');
@@ -26,15 +26,25 @@ class CommentController extends Controller
         $post->load(['user:id,name']);
         $hasVoted = $post->votes()->where('user_id', auth()->id())->exists();
 
-        return view('posts.detail', ['post' => $post, 'hasVoted' => $hasVoted, 'comments' => $comments, 'editCommentId' => $comment_id, 'edit' => true]);
+        return view('posts.detail', [
+            'post' => $post, 
+            'hasVoted' => $hasVoted, 
+            'comments' => $comments, 
+            'editCommentId' => $comment_id, 
+            'edit' => true
+        ]);
     }
 
     public function update(Request $request, Post $post, $commentId) {
         $comment = Comment::findOrFail($commentId);
-        $comment->body = $request->body;
-        // dd($comment);
+    
+        $validatedData = $request->validate([
+            'body' => 'required'
+        ]);
+        
+        $comment->body = $validatedData['body'];
         $comment->save();
-
+        
         return redirect(route('posts.detail', ['post' => $post]))->with('success', 'comment updated');
     }
 

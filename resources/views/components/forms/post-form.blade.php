@@ -22,8 +22,8 @@
         <div>
             <x-button 
                 variant="outline" 
-                text="Create Post" 
-                type="{{ $submitText }}"
+                text="{{ $submitText }}" 
+                type="submit"
             />
         </div>
     </div>

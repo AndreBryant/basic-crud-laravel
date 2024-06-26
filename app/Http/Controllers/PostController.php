@@ -64,7 +64,11 @@ class PostController extends Controller
             'post_id' => $post->id,
         ]);
 
-        return response()->json(['success' => 'Post voted']);
+        return response()->json([
+            'success' => true,
+            'isVoted' => true,
+            'rating' => $post->votes
+        ]);
     }
 
     public function unvote(Post $post, Request $request) {
@@ -79,7 +83,11 @@ class PostController extends Controller
             $post->save();
             $vote->delete();
     
-            return response()->json(['success' => 'Vote removed successfully']);
+            return response()->json([
+                'success' => true,
+                'isVoted' => false,
+                'rating' => $post->votes
+            ]);
         }
     }
 

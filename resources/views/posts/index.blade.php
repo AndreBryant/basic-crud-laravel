@@ -19,7 +19,6 @@
         
         <div class="flex flex-col grow gap-4">
             @foreach ($posts as $post)
-
                 <x-card.post-item
                     :post="$post"
                     :isVoted="in_array($post->id, $userVotes)"

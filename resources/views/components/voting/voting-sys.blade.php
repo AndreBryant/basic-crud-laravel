@@ -1,74 +1,47 @@
 <div class="flex flex-row gap-4 items-center">
-    @if ($isVoted)
-        <form 
-            action="{{ route('posts.unvote', ['post' => $post]) }}" 
-            method="post"
-            id="unvote-{{$post->id}}"
-        >   
+    <form 
+        action="{{ $isVoted ? route('posts.unvote', ['post' => $post]) : route('posts.vote', ['post' => $post]) }}" 
+        method="post"
+        id="vote-form-{{$post->id}}"
+    >   
+        @csrf
+        @method('put')
+        <x-button 
+            variant="outline" 
+            text="{{ $isVoted ? 'Unvote' : 'Vote' }}" 
+            type="submit" 
+            id="form-button-{{$post->id}}"
+        />  
+    </form>
 
-            @csrf
-            @method('put')
-            <x-button 
-                variant="outline" 
-                text="Unvote" 
-                type="submit" 
-            />  
-        </form>
-    @else
-        <form 
-            action="{{ route('posts.vote', ['post' => $post]) }}" 
-            method="post"
-            id="vote-{{$post->id}}"
-        >
-            @csrf
-            @method('put')
-            <x-button 
-                variant="outline" 
-                text="Vote" 
-                type="submit" 
-            />
-        </form>
-    @endif
-
-    <span class="opacity-85 text-sm">
+    <span class="opacity-85 text-sm" id="rating-{{$post->id}}">
         Rating: {{ $rating }}
     </span>
     
     <script type="text/javascript">
-        $(document).ready(function()
-            {
-                $('#unvote-{{$post->id}}').on('submit', function(event)
-                    {   
-                        event.preventDefault();
-                        $.ajax({
-                            url: "{{ route('posts.unvote', ['post' => $post]) }}",
-                            data:jQuery('#unvote-{{$post->id}}').serialize(),
-                            type: 'POST',
-                            success: function(result)
-                            {
-                                // console.log(JSON.stringify(result));
-                            },
-
-                        });
-                    });
-
-                $('#vote-{{$post->id}}').on('submit', function(event)
-                    {
-                        event.preventDefault();
-                        $.ajax({
-                            url: "{{ route('posts.vote', ['post' => $post]) }}",
-                            data:jQuery('#vote-{{$post->id}}').serialize(),
-                            type: 'POST',
-                            success: function(result)
-                            {
-                                // console.log(JSON.stringify(result));
-                            },
-
-                        });
-                    });
+        $(document).ready(function() {
+            $('#vote-form-{{$post->id}}').on('submit', function(event) {   
+                event.preventDefault();
+                $.ajax({
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    type: 'POST',
+                    success: function(result) {
+                        if(result.success) {
+                            let form = $('#vote-form-{{$post->id}}');
+                            let button = $('#form-button-{{$post->id}}');
+                            if (result.isVoted) {
+                                form.attr('action', "{{ route('posts.unvote', ['post' => $post]) }}");
+                                button.text('Unvote');
+                            } else {
+                                form.attr('action', "{{ route('posts.vote', ['post' => $post]) }}");
+                                button.text('Vote');
+                            }
+                            $('#rating-{{$post->id}}').text('Rating: ' + result.rating);
+                        }
+                    },
+                });
             });
+        });
     </script>
 </div>
-
-
-

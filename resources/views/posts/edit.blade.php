@@ -14,6 +14,7 @@
         
         <x-forms.post-form 
             action="{{route('posts.update', ['post' => $post])}}" 
+            :post="$post"
             method="PUT" 
             submitText="Edit Post" 
             :errors="$errors ?? null" 

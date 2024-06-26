@@ -15,6 +15,11 @@
             $bgColor = "bg-red-600 hover:bg-red-800";
             $textColor = "text-gray-100";
             break;
+        case 'link':
+            $textDecor = "underline-offset-2 underline text-sm";
+            $border = "";
+            $spacing = "";
+            break;
         default:
             break;
     }
@@ -23,7 +28,7 @@
 <div>
     <a href="{{$to ?? ''}}">
         <button 
-            class="{{$spacing}} {{$border}} {{$bgColor ?? ''}} {{$textColor ?? '' }}"
+            class="{{$spacing}} {{$border}} {{$bgColor ?? ''}} {{$textColor ?? '' }} {{$textDecor ?? ''}}"
             {{ $attributes }}    
         >
             {{$text}}
