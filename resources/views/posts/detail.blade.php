@@ -1,8 +1,12 @@
 <x-app-layout>
-    <div class="w-full h-full flex flex-col px-8 pt-8 gap-2 xl:px-80">
+    <x-slot name="header">
+        <x-title title="View Post" />
+    </x-slot>
+
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 py-6">
         <div>
             <x-button 
-                variant="outline" 
+                variant="link" 
                 text="back to posts" 
                 to="{{route('posts.index')}}" 
                 />

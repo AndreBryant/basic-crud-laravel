@@ -7,6 +7,11 @@
             $bgColor = "bg-slate-900 hover:bg-slate-800";
             $textColor = "text-slate-50";
             break;
+        case 'secondary':
+            $bgColor = "hover:bg-gray-300 bg-gray-200";
+            $textColor = "text-black";
+            $border= "rounded-md";
+            break;
         case 'outline': 
             $bgColor = "bg-white hover:bg-gray-100";
             $textColor = "text-black";

@@ -8,11 +8,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Post;
+use App\Models\Vote;
 
 class ProfileController extends Controller
 {
     public function dashboard() {
-        return view('dashboard');
+        $posts = Post::where('user_id', Auth::id())->get();
+        $userVotes = Vote::where('user_id', Auth::id())->pluck('post_id')->toArray();
+        return view('dashboard', ['posts' => $posts, 'userVotes' => $userVotes]);
     }
     /**
      * Display the user's profile form.

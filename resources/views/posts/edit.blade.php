@@ -1,17 +1,15 @@
 <x-app-layout>
-    <div class="w-full h-full flex flex-col px-8 pt-8 gap-4 xl:px-80">
-        <div>
-            <x-button 
-                variant="outline" 
+    <x-slot name="header">
+        <x-title title="Edit A Post" />
+    </x-slot>
+            
+        
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 py-6">
+        <x-button 
+                variant="link" 
                 text="back to posts" 
                 to="{{route('posts.index')}}"
             />
-        </div>
-        
-        <div>
-            <x-title title="Edit A Post" />
-        </div>
-        
         <x-forms.post-form 
             action="{{route('posts.update', ['post' => $post])}}" 
             :post="$post"

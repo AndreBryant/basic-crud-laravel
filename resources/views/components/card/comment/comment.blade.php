@@ -16,17 +16,17 @@
                 <div>
                     <x-button variant="link" text="Edit" to="{{route('posts.comment.edit', ['post' => $post, 'commentId' => $comment->id])}}" />
                 </div>
-                @if (Auth::id() == $comment->user_id)
-                    <form action="{{route('posts.comment.destroy', ['post' => $post, 'commentId' => $comment->id])}}" method="post">
-                        @csrf
-                        @method('delete')
-                        <x-button 
-                            variant="link" 
-                            text="Delete" 
-                            type="submit"
-                            />
-                    </form>
-                @endif
+            @endif
+            @if (Auth::id() == $comment->user_id || Auth::id() == $post->user_id)
+                <form action="{{route('posts.comment.destroy', ['post' => $post, 'commentId' => $comment->id])}}" method="post">
+                    @csrf
+                    @method('delete')
+                    <x-button 
+                        variant="link" 
+                        text="Delete" 
+                        type="submit"
+                        />
+                </form>
             @endif
         </div>
     </div>

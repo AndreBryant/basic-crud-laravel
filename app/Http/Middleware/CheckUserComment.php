@@ -17,16 +17,13 @@ class CheckUserComment
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->method() != 'GET') {
-            return back();
-        }
-
+        $post = $request->route('post');
         $commentId = $request->route('commentId');
         $comment = Comment::findOrFail($commentId);
 
         $userId = $comment->user_id;
 
-        if (Auth::id() != $userId) {
+        if (Auth::id() != $userId && Auth::id() != $post->user_id) {
             return back();
         }
 

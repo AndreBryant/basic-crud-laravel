@@ -16,10 +16,6 @@ class CheckUserPost
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->method() !== 'GET') {
-            return back();
-        }
-
         $userId = $request->route('post')->user_id;
 
         if (Auth::id() !== $userId) {

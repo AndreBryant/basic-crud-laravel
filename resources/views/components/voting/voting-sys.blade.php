@@ -7,7 +7,7 @@
         @csrf
         @method('put')
         <x-button 
-            variant="outline" 
+            variant="secondary" 
             text="{{ $isVoted ? 'Unvote' : 'Vote' }}" 
             type="submit" 
             id="form-button-{{$post->id}}"

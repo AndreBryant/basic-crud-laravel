@@ -1,14 +1,17 @@
-<div class="border p-4 rounded-xl bg-white">
+<div class="p-4 rounded-xl bg-white">
     
-    <div class="flex items-end gap-2">
-        <x-card.card-title title="{{$post->title}}" />
-        <p class="opacity-85">
-            by {{$post->user->name}}
-        </p>
-        <p class="opacity-60">
-            at {{$post->created_at}}
+    <div class="flex justify-between">
+        <div class="flex flex-col">
+            <x-card.card-title title="{{$post->title}}" />
+            <p class="opacity-85">
+                by {{$post->user->name}}
+            </p>
+        </div>
+        <p class="opacity-60 text-sm">
+            {{$post->created_at}}
         </p>
     </div>                        
+    
     
     <div class="my-4 max-h-60">
         <p class="line-clamp-4">

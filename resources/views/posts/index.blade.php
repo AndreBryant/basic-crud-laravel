@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="w-full h-full flex flex-col px-8 pt-8 gap-4 xl:px-80">
+    <x-slot name="header">
         <div class="flex justify-between">            
             <div>
                 <x-title title="Posts" />
@@ -16,6 +16,8 @@
                 to="{{route('posts.create')}}" 
             />
         </div>
+    </x-slot>
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 py-12">
         
         <div class="flex flex-col grow gap-4">
             @foreach ($posts as $post)
