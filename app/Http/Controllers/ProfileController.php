@@ -10,13 +10,16 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\Post;
 use App\Models\Vote;
+use App\Models\Comment;
 
 class ProfileController extends Controller
 {
     public function dashboard() {
+        $comments = Comment::where('user_id', Auth::id())->get()->sortBy('created_at')->reverse();
+        $comments->load(['post:id,title']);
         $posts = Post::where('user_id', Auth::id())->get();
         $userVotes = Vote::where('user_id', Auth::id())->pluck('post_id')->toArray();
-        return view('dashboard', ['posts' => $posts, 'userVotes' => $userVotes]);
+        return view('dashboard', ['posts' => $posts, 'userVotes' => $userVotes, 'comments' => $comments]);
     }
     /**
      * Display the user's profile form.
