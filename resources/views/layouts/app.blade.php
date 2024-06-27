@@ -15,13 +15,14 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 flex flex-col w-screen h-screen overflow-hidden">
+    <body class="font-sans antialiased w-screen h-screen overflow-x-hidden">
+        <div class="min-h-screen bg-gray-100 flex flex-col w-full relative">
+
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white shadow">
+                <header class="bg-white shadow sticky top-0 z-10">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -29,9 +30,19 @@
             @endif
 
             <!-- Page Content -->
-            <main class="grow overflow-y-scroll pb-8">
+            <main class="grow pb-8">
                 {{ $slot }}
             </main>
+            <button class="fixed left-[90vw] top-[90vh] border rounded-full h-16 w-16 bg-slate-900 hover:bg-slate-700 text-white text-4xl flex items-center justify-center" id="back-to-top"> 
+                <div class="-rotate-90">
+                    >
+                </div>
+            </button>
         </div>
     </body>
+    <script>
+        $('#back-to-top').click(function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        })
+    </script>
 </html>

@@ -17,9 +17,14 @@ class ProfileController extends Controller
     public function dashboard() {
         $comments = Comment::where('user_id', Auth::id())->get()->sortBy('created_at')->reverse();
         $comments->load(['post:id,title']);
-        $posts = Post::where('user_id', Auth::id())->get();
+        $posts = Post::where('user_id', Auth::id())->get()->sortBy('created_at')->reverse();
         $userVotes = Vote::where('user_id', Auth::id())->pluck('post_id')->toArray();
-        return view('dashboard', ['posts' => $posts, 'userVotes' => $userVotes, 'comments' => $comments]);
+        
+        return view('dashboard', [
+            'posts' => $posts, 
+            'userVotes' => $userVotes, 
+            'comments' => $comments
+        ]);
     }
     /**
      * Display the user's profile form.
