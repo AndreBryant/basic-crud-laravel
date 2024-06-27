@@ -11,7 +11,7 @@
                 to="{{route('posts.index')}}"
             />
         <x-forms.post-form 
-            action="{{route('posts.update', ['post' => $post])}}" 
+            action="{{route('posts.update', ['postId' => $post->id])}}" 
             :post="$post"
             method="PUT" 
             submitText="Edit Post" 

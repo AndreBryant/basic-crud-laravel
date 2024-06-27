@@ -1,6 +1,6 @@
 <div class="flex flex-row gap-4 items-center">
     <form 
-        action="{{ $isVoted ? route('posts.unvote', ['post' => $post]) : route('posts.vote', ['post' => $post]) }}" 
+        action="{{ $isVoted ? route('posts.unvote', ['postId' => $post->id]) : route('posts.vote', ['postId' => $post->id]) }}" 
         method="post"
         id="vote-form-{{$post->id}}"
     >   
@@ -31,10 +31,10 @@
                             let form = $('#vote-form-{{$post->id}}');
                             let button = $('#form-button-{{$post->id}}');
                             if (result.isVoted) {
-                                form.attr('action', "{{ route('posts.unvote', ['post' => $post]) }}");
+                                form.attr('action', "{{ route('posts.unvote', ['postId' => $post->id]) }}");
                                 button.text('Unvote');
                             } else {
-                                form.attr('action', "{{ route('posts.vote', ['post' => $post]) }}");
+                                form.attr('action', "{{ route('posts.vote', ['postId' => $post->id]) }}");
                                 button.text('Vote');
                             }
                             $('#rating-{{$post->id}}').text('Rating: ' + result.rating);

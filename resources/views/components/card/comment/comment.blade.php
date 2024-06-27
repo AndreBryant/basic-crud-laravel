@@ -1,6 +1,6 @@
 @if ($edit && $edit && $editCommentId == $comment->id)
     <x-card.comment.edit-comment 
-        to="{{route('posts.comment.update', ['post' => $post ,'commentId' => $editCommentId])}}" 
+        to="{{route('posts.comment.update', ['postId' => $post->id ,'commentId' => $editCommentId])}}" 
         :post="$post" :comment="$comment" 
         :errors="$errors ?? null"
         />
@@ -30,12 +30,12 @@
                     <x-button 
                         variant="link" 
                         text="Edit" 
-                        to="{{route('posts.comment.edit', ['post' => $post, 'commentId' => $comment->id])}}" 
+                        to="{{route('posts.comment.edit', ['postId' => $post->id, 'commentId' => $comment->id])}}" 
                         />
                 </div>
             @endif
             @if (Auth::id() == $comment->user_id || Auth::id() == $post->user_id)
-                <form action="{{route('posts.comment.destroy', ['post' => $post, 'commentId' => $comment->id])}}" method="post">
+                <form action="{{route('posts.comment.destroy', ['postId' => $post->id, 'commentId' => $comment->id])}}" method="post">
                     @csrf
                     @method('delete')
                     <x-button 

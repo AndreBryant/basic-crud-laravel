@@ -35,7 +35,7 @@
         <x-button 
             variant="outline" 
             text="View Post" 
-            to="{{route('posts.detail', ['post' => $post])}}" 
+            to="{{route('posts.detail', ['postId' => $post->id])}}" 
             />
     </div>
 </div>

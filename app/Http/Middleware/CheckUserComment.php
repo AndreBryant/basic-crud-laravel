@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Comment;
+use App\Models\Post;
 
 class CheckUserComment
 {
@@ -17,13 +18,12 @@ class CheckUserComment
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $post = $request->route('post');
+        $postId = $request->route('postId');
+        $post = Post::findOrFail($postId);
         $commentId = $request->route('commentId');
         $comment = Comment::findOrFail($commentId);
 
-        $userId = $comment->user_id;
-
-        if (Auth::id() != $userId && Auth::id() != $post->user_id) {
+        if (Auth::id() != $comment->user_id && Auth::id() != $post->user_id) {
             return back();
         }
 

@@ -31,14 +31,16 @@ class PostController extends Controller
         $data['user_id'] = Auth::id();
 
         $newPost = Post::create($data);
-        return redirect(route('posts.detail', ['post' => $newPost]));
+        return redirect(route('posts.detail', ['postId' => $newPost->id]));
     }
     
-    public function edit(Post $post) {
+    public function edit($postId) {
+        $post = Post::findOrFail($postId);
         return view('posts.edit', ['post' => $post]);
     }
 
-    public function update(Post $post, Request $request) {
+    public function update($postId, Request $request) {
+        $post = Post::findOrFail($postId);
         $data = $request->validate([
             'title' => 'required',
             'body' => 'required',
@@ -47,15 +49,17 @@ class PostController extends Controller
         ]);
 
         $post->update($data);
-        return redirect(route('posts.detail', ['post' => $post]))->with('success', 'Post Updated.');
+        return redirect(route('posts.detail', ['postId' => $post->id]))->with('success', 'Post Updated.');
     }
 
-    public function destroy(Post $post) {
+    public function destroy($postId) {
+        $post = Post::findOrFail($postId);
         $post->delete();
         return redirect(route('posts.index'))->with('success', 'Post Deleted');
     }
 
-    public function vote(Post $post, Request $request) {
+    public function vote($postId, Request $request) {
+        $post = Post::findOrFail($postId);
         $post->votes += 1;
         $post->save();
 
@@ -71,7 +75,8 @@ class PostController extends Controller
         ]);
     }
 
-    public function unvote(Post $post, Request $request) {
+    public function unvote($postId, Request $request) {
+        $post = Post::findOrFail($postId);
         $user = Auth::user();
 
         $vote = Vote::where('user_id', $user->id)
@@ -91,7 +96,8 @@ class PostController extends Controller
         }
     }
 
-    public function detail(Post $post) {
+    public function detail($postId) {
+        $post = Post::findOrFail($postId);
         $comments = $post->comments()->with(['user:id,name'])->get()->sortBy('created_at')->reverse();
         $post->load(['user:id,name']);
         $hasVoted = $post->votes()->where('user_id', auth()->id())->exists();

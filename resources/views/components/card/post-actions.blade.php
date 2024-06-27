@@ -4,7 +4,7 @@
         <x-card.card-title title="Comments" />
 
         <div>
-            <form action="{{route('posts.comment', ['post' => $post])}}" method="post">
+            <form action="{{route('posts.comment', ['postId' => $post->id])}}" method="post">
                 @csrf
                 @method('post')
                 <div class="flex gap-4">
@@ -25,10 +25,10 @@
             <x-button 
                 variant="outline" 
                 text="Edit Post" 
-                to="{{route('posts.edit',['post' => $post])}}" 
+                to="{{route('posts.edit',['postId' => $post->id])}}" 
                 />
 
-            <form action="{{route('posts.destroy', ['post' => $post])}}" method="post">
+            <form action="{{route('posts.destroy', ['postId' => $post->id])}}" method="post">
                 @csrf
                 @method('delete')
                 <x-button 

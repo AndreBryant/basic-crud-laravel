@@ -9,19 +9,20 @@ use App\Models\Comment;
 
 class CommentController extends Controller
 {
-    public function comment(Request $request, Post $post) {
+    public function comment(Request $request, $postId) {
         $data = $request->validate([
             'body' => 'required'
         ]);
         $data['user_id'] = Auth::id();
-        $data['post_id'] = $post->id;
+        $data['post_id'] = $postId;
         
         $newComment = Comment::create($data);
 
         return back()->with('success', 'Comment added successfully.');
     }
 
-    public function edit(Post $post, $comment_id) {
+    public function edit($postId, $comment_id) {
+        $post = Post::findOrFail($postId);
         $comments = $post->comments()->with(['user:id,name'])->get()->sortBy('created_at')->reverse();
         $post->load(['user:id,name']);
         $hasVoted = $post->votes()->where('user_id', auth()->id())->exists();
@@ -35,7 +36,7 @@ class CommentController extends Controller
         ]);
     }
 
-    public function update(Request $request, Post $post, $commentId) {
+    public function update(Request $request, $postId, $commentId) {
         $comment = Comment::findOrFail($commentId);
     
         $validatedData = $request->validate([
@@ -45,13 +46,13 @@ class CommentController extends Controller
         $comment->body = $validatedData['body'];
         $comment->save();
         
-        return redirect(route('posts.detail', ['post' => $post]))->with('success', 'comment updated');
+        return redirect(route('posts.detail', ['postId' => $postId]))->with('success', 'comment updated');
     }
 
-    public function destroy(Post $post, $commentId) {
+    public function destroy($postId, $commentId) {
         $comment = Comment::findOrFail($commentId);
         $comment->delete();
 
-        return redirect(route('posts.detail', ['post' => $post]))->with('success', 'comment deleted.');
+        return redirect(route('posts.detail', ['postId' => $postId]))->with('success', 'comment deleted.');
     }
 }

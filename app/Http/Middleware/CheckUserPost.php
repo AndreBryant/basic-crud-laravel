@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\Post;
 
 class CheckUserPost
 {
@@ -16,9 +17,10 @@ class CheckUserPost
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $userId = $request->route('post')->user_id;
+        $postId = $request->route('postId');
+        $post = Post::findOrFail($postId);
 
-        if (Auth::id() !== $userId) {
+        if (Auth::id() !== $post->user_id) {
             return back();
         }
 
