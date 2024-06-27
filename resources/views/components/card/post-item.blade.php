@@ -1,10 +1,14 @@
 <div class="p-4 rounded-xl bg-white">
-    
     <div class="flex justify-between">
         <div class="flex flex-col">
             <x-card.card-title title="{{$post->title}}" />
             @if (Auth::id() == $post->user_id)
-                <p class="opacity text-sm">by <span class="font-semibold text-sm bg-slate-200 px-2 rounded-xl">{{$post->user->name}}</span></p>
+                <p class="opacity text-sm">
+                    by 
+                    <span class="text-sm bg-slate-200 px-2 rounded-xl">
+                        {{$post->user->name}}
+                    </span>
+                </p>
             @else
                 <p class="opacity-85 text-sm">by {{$post->user->name}}</p>
             @endif
