@@ -23,10 +23,8 @@
                         />
                     @empty
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            <div class="p-6 text-gray-900">
-                                {{ __("You do not have any posts yet.") }}
-                            </div>
+                        <div class="opacity-65">
+                            {{ __("You do not have any posts yet.") }}
                         </div>
                     </div>
                 @endforelse
@@ -55,10 +53,8 @@
                     </div>
                     @empty
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            <div class="p-6 text-gray-900">
+                        <div class="opacity-65">
                                 {{ __("You do not have any comments.") }}
-                            </div>
                         </div>
                     </div>
                 @endforelse

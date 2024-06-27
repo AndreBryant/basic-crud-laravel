@@ -20,7 +20,7 @@
     
     
     <div class="max-h-60 my-6 w-full overflow-hidden">
-        <p class="w-full break-words">
+        <p class="w-full break-words line-clamp-5">
             {{$post->body}}
         </p>
     </div>

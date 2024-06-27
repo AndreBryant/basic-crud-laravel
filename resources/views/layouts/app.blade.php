@@ -17,12 +17,13 @@
     </head>
     <body class="font-sans antialiased w-screen h-screen overflow-x-hidden">
         <div class="min-h-screen bg-gray-100 flex flex-col w-full relative">
-
-            @include('layouts.navigation')
+            <div class="sticky top-0 z-10 shadow">
+                @include('layouts.navigation')
+            </div>
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white shadow sticky top-0 z-10">
+                <header class="bg-white">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -51,8 +52,24 @@
         </div>
     </body>
     <script>
-        $('#back-to-top').click(function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        })
+        $(document).ready(function() {            
+            const backToTopButton = $('#back-to-top');
+
+            const toggleBackToTopButton = () => {
+                if ($(window).scrollTop() > 100) {
+                    backToTopButton.fadeIn();
+                } else {
+                    backToTopButton.fadeOut();
+                }
+            };
+
+            $(window).scroll(toggleBackToTopButton);
+
+            toggleBackToTopButton();
+
+            backToTopButton.click(function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
     </script>
 </html>

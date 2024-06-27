@@ -13,8 +13,8 @@
         </div>
     </div>
 
-    <div class="w-full">
-        <p class="min-h-20 w-full line-clamp-4 break-words">{{$post->body}}</p>
+    <div class="w-full my-2">
+        <p class="min-h-20 w-full break-words">{{$post->body}}</p>
     </div>
 
     <div class="flex flex-row items-center gap-4 justify-between">
