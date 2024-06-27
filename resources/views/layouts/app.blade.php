@@ -33,10 +33,20 @@
             <main class="grow pb-8">
                 {{ $slot }}
             </main>
-            <button class="fixed left-[90vw] top-[90vh] border rounded-full h-16 w-16 bg-slate-900 hover:bg-slate-700 text-white text-4xl flex items-center justify-center" id="back-to-top"> 
-                <div class="-rotate-90">
-                    >
-                </div>
+            <button class="fixed left-[90vw] top-[90vh] border rounded-full h-14 w-14 bg-slate-900 hover:bg-slate-700 text-white text-4xl flex items-center justify-center" id="back-to-top"> 
+                <span class="[&>svg]:w-4">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="3"
+                      stroke="currentColor">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+                    </svg>
+                  </span>
             </button>
         </div>
     </body>

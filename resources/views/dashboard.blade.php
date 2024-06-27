@@ -41,8 +41,8 @@
                     <div class="bg-white py-2 px-4 space-y-4">
                         <h3 class="font-semibold">{{$comment->post->title}}</h3>
                         <p class="break-words line-clamp-3">
-                            <span class="px-2 bg-slate-200">{{Auth::user()->name}}</span>
-                            : {{$comment->body}}
+                            <span class="px-2 bg-slate-200">{{Auth::user()->name}}:</span>
+                            {{$comment->body}}
                         </p>
                         <div>
                             <p class="opacity-60 text-xs">{{$comment->created_at}}</p>
